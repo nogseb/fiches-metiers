@@ -1,43 +1,53 @@
-# Guide des Métiers TBS Education — Livrable POC
+# Guide des Métiers TBS Education — POC
 
-## Structure du livrable
+Section statique de fiches métiers (React / Vite compilé), publiée en prévisualisation sous
+[nogues.app/fiches-metiers](https://nogues.app/fiches-metiers/).
+
+## Structure
 
 ```
-site/          ← Build statique (déployer via sFTP sur Apache)
+site/                    ← Site à publier (contenu de www/fiches-metiers)
   index.html
-  assets/
-  .htaccess    ← Règle de réécriture Apache (obligatoire)
+  .htaccess              ← Réécriture Apache pour les URLs /fiche/{slug} (mod_rewrite requis)
+  assets/                ← JS et CSS compilés
+  images/hero/           ← Visuels des fiches ({slug}.webp)
+  images/thumb/          ← Vignettes des cards ({slug}_thumb.webp)
+  images/logo-tbs-*.svg  ← Logos TBS Education
 data/
-  metiers.json     ← 95 fiches métiers FR
-  formations.json  ← 29 formations TBS avec URLs
+  metiers.json           ← 95 fiches métiers FR (export Airtable)
+  formations.json        ← Formations TBS Education avec URLs
 scripts/
-  sync-airtable.mjs  ← Script de synchronisation Airtable → JSON
-assets/
-  hero/          ← Images hero nommées par slug ({slug}.webp)
-  thumb/         ← Vignettes nommées par slug ({slug}_thumb.webp)
-gabarits/
-  GABARIT_ARCHIVE.json      ← Gabarit page listing
-  GABARIT_SINGLE.json       ← Gabarit page fiche complète
-  i18n-labels.json          ← Labels UI FR/EN/ES
-  DOCUMENTATION_EXPERT_IA.md  ← Documentation complète
-  DOCUMENTATION_EXPERT_IA.pdf ← Version PDF
+  sync-airtable.mjs      ← Synchronisation Airtable → JSON (jeton : variable AIRTABLE_TOKEN)
+gabarits/                ← Gabarits archive / single, labels FR/EN/ES, documentation expert IA
+.github/workflows/       ← Publication SFTP vers OVHcloud
 ```
 
-## Déploiement Apache
+## Publication
 
-1. Uploader le contenu de `site/` sur le serveur Apache via sFTP
-2. S'assurer que le module `mod_rewrite` est activé
-3. Le fichier `.htaccess` gère le routing SPA automatiquement
+Chaque push sur `main` qui modifie `site/` publie le site via GitHub Actions
+(secrets `OVH_SFTP_HOST`, `OVH_SFTP_USER`, `OVH_SFTP_PASSWORD`). Lancement manuel possible
+depuis l'onglet Actions.
+
+## Adaptations apportées au build Manus
+
+Le build livré par Manus visait la racine d'un domaine et dépendait de l'hébergement Manus.
+Il a été adapté directement dans les fichiers compilés :
+
+- chemins des JS, CSS, liens internes et routeur ramenés sous `/fiches-metiers/` ;
+- visuels des fiches et logos servis depuis `site/images/` au lieu de `/manus-storage/` ;
+- vignettes `_thumb` utilisées pour les cards et les métiers similaires ;
+- retrait des scripts Manus (runtime d'édition, collecteur de débogage, statistiques Umami) ;
+- liens EN / ES masqués (versions non publiées) ;
+- balise `noindex, nofollow` : prévisualisation, à ne pas indexer sous ce domaine.
+
+Ces adaptations seront perdues à chaque nouveau build Manus : à reporter dans les sources
+(`base: '/fiches-metiers/'` dans Vite, base du routeur, chemins d'images) ou à réappliquer.
 
 ## Resynchronisation Airtable
 
 ```bash
-node scripts/sync-airtable.mjs
+AIRTABLE_TOKEN=pat... node scripts/sync-airtable.mjs
 ```
 
-Puis redéployer le fichier `data/metiers.json` mis à jour.
-
-## Versions EN / ES
-
-Dupliquer `data/metiers.json`, traduire les champs textuels selon `gabarits/i18n-labels.json`, 
-déployer dans les répertoires `/careers/` (EN) et `/carreras/` (ES).
+Le script écrit les données ; le site compilé embarque les siennes et doit être reconstruit pour
+les afficher.

@@ -1,0 +1,84 @@
+# Publie le site statique sous nogues.app/fiches-metiers (hébergement web OVHcloud), en SFTP.
+#
+# Réglages (Settings > Secrets and variables > Actions de CE dépôt), jamais écrits ici :
+#   secrets   OVH_SFTP_HOST      serveur FTP/SFTP de l'hébergement
+#             OVH_SFTP_USER      login FTP (SFTP activé)
+#             OVH_SFTP_PASSWORD  mot de passe FTP
+#   variable  OVH_TARGET_DIR     dossier de destination (par défaut : www/fiches-metiers)
+#
+# Déclencheurs : chaque push sur main qui modifie site/ ou ce fichier, et lancement manuel.
+# Sans les secrets, le site est vérifié mais rien n'est envoyé.
+# Les fichiers sont ajoutés ou remplacés ; rien n'est supprimé sur le serveur.
+
+name: Publier les fiches métiers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-fiches-metiers
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SFTP_HOST: ${{ secrets.OVH_SFTP_HOST }}
+      SFTP_USER: ${{ secrets.OVH_SFTP_USER }}
+      LFTP_PASSWORD: ${{ secrets.OVH_SFTP_PASSWORD }}
+      TARGET_DIR: ${{ vars.OVH_TARGET_DIR || 'www/fiches-metiers' }}
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Vérifier le site
+        run: |
+          test -f site/index.html && test -f site/.htaccess
+          for f in $(grep -o '/fiches-metiers/assets/[^"]*' site/index.html); do
+            test -f "site/${f#/fiches-metiers/}" || { echo "::error::Fichier manquant : $f"; exit 1; }
+          done
+          if grep -rqi 'manus-analytics\|debug-collector\|manus-runtime' site/; then
+            echo "::error::Un script Manus est présent dans site/ : à retirer avant publication."
+            exit 1
+          fi
+          echo "Fichiers à publier : $(find site -type f | wc -l)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Vérifier la configuration de publication
+        id: check
+        run: |
+          if [ -z "$SFTP_HOST" ] || [ -z "$SFTP_USER" ] || [ -z "$LFTP_PASSWORD" ]; then
+            echo "::warning::Secrets OVH_SFTP_* absents : site vérifié mais pas publié."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          case "${TARGET_DIR%/}" in
+            ""|"."|"/"|"www")
+              echo "::error::Dossier cible refusé (« $TARGET_DIR ») : indiquez www/fiches-metiers."
+              exit 1 ;;
+          esac
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - name: Installer lftp
+        if: steps.check.outputs.ready == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Envoyer site/ en SFTP
+        if: steps.check.outputs.ready == 'true'
+        run: |
+          lftp --env-password -u "$SFTP_USER" "sftp://$SFTP_HOST" -e "
+            set sftp:auto-confirm yes;
+            set net:timeout 20; set net:max-retries 3; set net:reconnect-interval-base 5;
+            mkdir -p -f '$TARGET_DIR';
+            mirror --reverse --parallel=4 site/ '$TARGET_DIR';
+            cls -1 '$TARGET_DIR';
+            bye"
+          echo "Publication terminée dans $TARGET_DIR : https://nogues.app/fiches-metiers/" >> "$GITHUB_STEP_SUMMARY"
