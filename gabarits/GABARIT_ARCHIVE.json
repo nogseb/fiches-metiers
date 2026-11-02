@@ -1,0 +1,115 @@
+{
+  "_INSTRUCTIONS": {
+    "usage": "Ce gabarit définit la structure d'un enregistrement de fiche métier pour la page Archive (listing). Chaque fiche métier doit être un objet JSON conforme à ce modèle. Remplacer chaque valeur {{PLACEHOLDER}} par le contenu réel. Ne pas modifier les clés (noms de champs). Produire un tableau JSON de N objets, un par fiche métier.",
+    "livraison": "Fichier : metiers-{lang}.json (ex: metiers-fr.json, metiers-en.json, metiers-es.json). Encodage : UTF-8 sans BOM. Séparateur décimal : point. Salaires en milliers d'euros (entier).",
+    "langue": "Champs marqués [TRADUIRE] doivent être rédigés dans la langue cible. Champs marqués [INVARIANT] sont identiques dans toutes les langues.",
+    "contraintes_critiques": [
+      "Le champ 'slug' doit être unique, en minuscules, sans accents, avec tirets (ex: directeur-marketing). Il sert d'identifiant URL.",
+      "Le champ 'secteur_id' doit être l'une des 9 valeurs autorisées listées dans REFERENTIELS.secteurs_id.",
+      "Le champ 'domaine_activite' doit correspondre exactement au libellé du secteur associé au secteur_id (voir REFERENTIELS.secteurs).",
+      "Le champ 'formations_tbs' doit contenir uniquement des labels issus de REFERENTIELS.formations_tbs. Tout label non listé sera ignoré.",
+      "Les champs 'remuneration_min' et 'remuneration_max' sont des entiers en k€ brut annuel. Si inconnu, utiliser 0.",
+      "Le champ 'employabilite' ne doit être renseigné que si la fiche est complète et validée. Valeurs autorisées : 'Très recherché', 'Favorable', 'Modérée', 'Difficile'. Laisser vide ('') sinon.",
+      "Le champ 'descriptif_court' est limité à 160 caractères. Il est utilisé comme meta description SEO."
+    ]
+  },
+
+  "_REFERENTIELS": {
+    "secteurs": {
+      "Management – Stratégie – Conseil – Innovation": "strategie",
+      "Finance – Audit – Contrôle – Banque – Risk": "finance",
+      "Commerce – Business – Entrepreneuriat": "business",
+      "Supply Chain – Achats – Logistique – Opérations": "supply",
+      "Data – IT – Produit – Transformation digitale": "data",
+      "Marketing – Communication – Marque – Digital": "marketing",
+      "Ressources humaines – Management – Organisation": "rh",
+      "RSE – Qualité – Développement durable": "rse",
+      "Secteurs spécifiques (aéronautique, sport, luxe, tourisme, culture)": "specifiques"
+    },
+    "formations_tbs": [
+      "Bachelor",
+      "PGE",
+      "MSc Digital Transformation & Business Innovation",
+      "MSc Cultural Management: Music, Screen and Video Games",
+      "MSc Digital Marketing and e-Commerce",
+      "MSc Aerospace Management",
+      "MSc International Luxury Industries Management",
+      "MSc Entrepreneurship",
+      "MSc Marketing & Management in Sport Organizations",
+      "MSc Fashion and Luxury Marketing",
+      "MSc Finance",
+      "MSc Relations et Ressources Humaines",
+      "MSc Brand Management and Creativity",
+      "MSc Digital Marketing & Analytics",
+      "MS Expert en Audit Interne et Contrôle de Gestion",
+      "MSc Marketing Management & Communication",
+      "MS Expert en Banque et Ingénierie Financière",
+      "MS Juriste Manager des Affaires",
+      "MS Manager Achats & Supply Chain",
+      "MS Manager de l'Innovation Technologique",
+      "MS Manager de Structures Sanitaires & Sociales",
+      "MS Manager Marketing & Commercial dans les Industries de Santé",
+      "MS Manager des Ressources Humaines",
+      "Executive Global MBA",
+      "MSc Banking International Finance",
+      "MSc Communication & Brand Content",
+      "MSc Data Science & AI",
+      "MSc International Business",
+      "MSc Purchasing & Supply Chain Manager"
+    ],
+    "employabilite_valeurs": ["Très recherché", "Favorable", "Modérée", "Difficile", ""]
+  },
+
+  "_GABARIT_FICHE": {
+    "slug": "{{SLUG | string | Identifiant URL unique, minuscules, sans accents, tirets. Ex: directeur-marketing | INVARIANT}}",
+
+    "title": "{{TITRE_METIER | string | Intitulé du métier en casse normale. Ex: Directeur marketing | TRADUIRE}}",
+
+    "descriptif_court": "{{DESCRIPTIF_COURT | string | Accroche du métier, max 160 caractères, sans HTML. Utilisé comme meta description SEO. | TRADUIRE}}",
+
+    "competences_tags": [
+      "{{TAG_1 | string | Compétence clé courte (2-3 mots max). Affiché comme badge sur la card. | TRADUIRE}}",
+      "{{TAG_2 | string | Compétence clé courte (2-3 mots max). | TRADUIRE}}",
+      "{{TAG_3 | string | Compétence clé courte (2-3 mots max). | TRADUIRE}}"
+    ],
+
+    "remuneration_min": "{{SALAIRE_MIN | integer | Salaire junior en k€ brut annuel. Entier. Ex: 45. Mettre 0 si inconnu. | INVARIANT}}",
+    "remuneration_max": "{{SALAIRE_MAX | integer | Salaire senior en k€ brut annuel. Entier. Ex: 90. Mettre 0 si inconnu. | INVARIANT}}",
+
+    "domaine_activite": "{{DOMAINE | string | Libellé exact du secteur. Doit correspondre à une clé de REFERENTIELS.secteurs. | TRADUIRE si langue non FR sinon INVARIANT}}",
+    "secteur_id": "{{SECTEUR_ID | enum | Identifiant court du secteur. Valeurs autorisées : strategie, finance, business, supply, data, marketing, rh, rse, specifiques. | INVARIANT}}",
+
+    "employabilite": "{{EMPLOYABILITE | enum | Niveau d'employabilité. Valeurs autorisées : 'Très recherché', 'Favorable', 'Modérée', 'Difficile'. Laisser '' si non validé. | TRADUIRE}}",
+
+    "formations_tbs": [
+      "{{FORMATION_1 | string | Label exact issu de REFERENTIELS.formations_tbs. | INVARIANT}}",
+      "{{FORMATION_2 | string | Label exact issu de REFERENTIELS.formations_tbs. | INVARIANT}}"
+    ],
+
+    "appetences": [
+      "{{APPETENCE_1 | string | Appétence ou centre d'intérêt. Ex: Digital, Business, Art, Entrepreneuriat. | TRADUIRE}}",
+      "{{APPETENCE_2 | string | Appétence ou centre d'intérêt. | TRADUIRE}}"
+    ],
+
+    "image": "{{URL_IMAGE | string | URL absolue de l'image de couverture de la card (format paysage, min 400x300px). Laisser vide si pas d'image spécifique. | INVARIANT}}",
+
+    "source_apec_url": "{{URL_APEC | string | URL de la fiche APEC correspondante. Ex: https://www.apec.fr/tous-nos-metiers/... Laisser vide si inexistante. | INVARIANT}}"
+  },
+
+  "_EXEMPLE_REEL": {
+    "_note": "Exemple basé sur la fiche Directeur marketing (données validées)",
+    "slug": "directeur-marketing",
+    "title": "Directeur marketing",
+    "descriptif_court": "Pilotez la stratégie marketing, la croissance de la marque et l'expérience client pour transformer les tendances du marché en avantages concurrentiels durables.",
+    "competences_tags": ["Stratégie marketing", "Digital", "Innovation"],
+    "remuneration_min": 48,
+    "remuneration_max": 113,
+    "domaine_activite": "Marketing – Communication – Marque – Digital",
+    "secteur_id": "marketing",
+    "employabilite": "Très recherché",
+    "formations_tbs": ["PGE", "MSc Digital Marketing and e-Commerce"],
+    "appetences": ["Business", "Digital", "Art"],
+    "image": "",
+    "source_apec_url": "https://www.apec.fr/tous-nos-metiers/commercial-marketing/directeur-marketing.html"
+  }
+}

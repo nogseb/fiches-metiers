@@ -1,0 +1,358 @@
+{
+  "_meta": {
+    "description": "Fichier de traductions des labels UI pour les 3 versions linguistiques du Guide des Métiers TBS Education",
+    "langues": ["fr", "en", "es"],
+    "usage": "Remplacer les valeurs par les traductions correspondantes. Les clés ne doivent pas être modifiées.",
+    "derniere_mise_a_jour": "2026-08-06"
+  },
+  "hero": {
+    "surtitle": {
+      "fr": "TBS EDUCATION · OBSERVATOIRE DES METIERS",
+      "en": "TBS EDUCATION · CAREER OBSERVATORY",
+      "es": "TBS EDUCATION · OBSERVATORIO DE PROFESIONES"
+    },
+    "title_line1": {
+      "fr": "QUELS METIERS",
+      "en": "WHICH CAREERS",
+      "es": "¿QUÉ PROFESIONES"
+    },
+    "title_line2": {
+      "fr": "APRES TBS EDUCATION ?",
+      "en": "AFTER TBS EDUCATION?",
+      "es": "DESPUÉS DE TBS EDUCATION?"
+    },
+    "subtitle": {
+      "fr": "Explore les débouchés professionnels de nos programmes. Salaires, compétences, secteurs d'activité : tout ce qu'il faut pour choisir ton avenir.",
+      "en": "Explore the career opportunities of our programmes. Salaries, skills, sectors: everything you need to choose your future.",
+      "es": "Explora las salidas profesionales de nuestros programas. Salarios, competencias, sectores de actividad: todo lo que necesitas para elegir tu futuro."
+    },
+    "stat1_label": {
+      "fr": "Métiers référencés",
+      "en": "Listed careers",
+      "es": "Profesiones referenciadas"
+    },
+    "stat2_label": {
+      "fr": "Domaines d'activité",
+      "en": "Activity sectors",
+      "es": "Sectores de actividad"
+    },
+    "stat3_label": {
+      "fr": "Taux d'emploi à 4 mois",
+      "en": "Employment rate at 4 months",
+      "es": "Tasa de empleo a 4 meses"
+    },
+    "cta_formations": {
+      "fr": "Découvrir les formations de TBS Education",
+      "en": "Discover TBS Education programmes",
+      "es": "Descubrir los programas de TBS Education"
+    }
+  },
+  "search": {
+    "placeholder": {
+      "fr": "Rechercher un métier ou un domaine...",
+      "en": "Search for a career or a sector...",
+      "es": "Buscar una profesión o un sector..."
+    },
+    "results_count": {
+      "fr": "{n} métiers trouvés",
+      "en": "{n} careers found",
+      "es": "{n} profesiones encontradas"
+    }
+  },
+  "filters": {
+    "title": {
+      "fr": "Filtres",
+      "en": "Filters",
+      "es": "Filtros"
+    },
+    "reset": {
+      "fr": "Réinitialiser",
+      "en": "Reset",
+      "es": "Reiniciar"
+    },
+    "salary_section": {
+      "fr": "Salaire",
+      "en": "Salary",
+      "es": "Salario"
+    },
+    "domaine_section": {
+      "fr": "Domaine",
+      "en": "Sector",
+      "es": "Sector"
+    },
+    "formation_section": {
+      "fr": "Formation",
+      "en": "Programme",
+      "es": "Programa"
+    },
+    "appetence_section": {
+      "fr": "Appétence",
+      "en": "Interest",
+      "es": "Interés"
+    }
+  },
+  "card": {
+    "salary_label": {
+      "fr": "Salaire",
+      "en": "Salary",
+      "es": "Salario"
+    },
+    "cta_discover": {
+      "fr": "Découvrir",
+      "en": "Discover",
+      "es": "Descubrir"
+    },
+    "badge_employabilite": {
+      "tres_favorable": {
+        "fr": "Très recherché",
+        "en": "Highly sought",
+        "es": "Muy demandado"
+      },
+      "favorable": {
+        "fr": "Favorable",
+        "en": "Favourable",
+        "es": "Favorable"
+      },
+      "moderee": {
+        "fr": "Modérée",
+        "en": "Moderate",
+        "es": "Moderada"
+      },
+      "difficile": {
+        "fr": "Difficile",
+        "en": "Difficult",
+        "es": "Difícil"
+      }
+    }
+  },
+  "modal": {
+    "le_metier": {
+      "fr": "Le métier",
+      "en": "The career",
+      "es": "La profesión"
+    },
+    "en_savoir_plus": {
+      "fr": "En savoir plus",
+      "en": "Read more",
+      "es": "Saber más"
+    },
+    "reduire": {
+      "fr": "Réduire",
+      "en": "Show less",
+      "es": "Reducir"
+    },
+    "missions": {
+      "fr": "Missions principales",
+      "en": "Main responsibilities",
+      "es": "Misiones principales"
+    },
+    "hard_skills": {
+      "fr": "Hard Skills",
+      "en": "Hard Skills",
+      "es": "Hard Skills"
+    },
+    "soft_skills": {
+      "fr": "Soft Skills",
+      "en": "Soft Skills",
+      "es": "Soft Skills"
+    },
+    "niveau_etudes": {
+      "fr": "Niveau d'études requis",
+      "en": "Required education level",
+      "es": "Nivel de estudios requerido"
+    },
+    "formations_tbs": {
+      "fr": "Formations TBS Education",
+      "en": "TBS Education programmes",
+      "es": "Programas TBS Education"
+    },
+    "source_apec": {
+      "fr": "Source : fiche APEC",
+      "en": "Source: APEC profile",
+      "es": "Fuente: ficha APEC"
+    },
+    "cta_fiche": {
+      "fr": "Ouvrir la fiche complète",
+      "en": "Open full profile",
+      "es": "Abrir ficha completa"
+    }
+  },
+  "single": {
+    "back_desktop": {
+      "fr": "Retour au guide des métiers",
+      "en": "Back to career guide",
+      "es": "Volver a la guía de profesiones"
+    },
+    "back_mobile": {
+      "fr": "Retour au guide",
+      "en": "Back to guide",
+      "es": "Volver a la guía"
+    },
+    "salary_junior": {
+      "fr": "Salaire junior",
+      "en": "Junior salary",
+      "es": "Salario junior"
+    },
+    "salary_senior": {
+      "fr": "Salaire senior",
+      "en": "Senior salary",
+      "es": "Salario senior"
+    },
+    "le_metier": {
+      "fr": "Le métier",
+      "en": "The career",
+      "es": "La profesión"
+    },
+    "missions": {
+      "fr": "Missions principales",
+      "en": "Main responsibilities",
+      "es": "Misiones principales"
+    },
+    "hard_skills": {
+      "fr": "Hard Skills",
+      "en": "Hard Skills",
+      "es": "Hard Skills"
+    },
+    "soft_skills": {
+      "fr": "Soft Skills",
+      "en": "Soft Skills",
+      "es": "Soft Skills"
+    },
+    "formations_tbs": {
+      "fr": "Formations TBS Education",
+      "en": "TBS Education programmes",
+      "es": "Programas TBS Education"
+    },
+    "metiers_similaires": {
+      "fr": "Métiers similaires",
+      "en": "Similar careers",
+      "es": "Profesiones similares"
+    },
+    "source_apec": {
+      "fr": "Source : fiche APEC",
+      "en": "Source: APEC profile",
+      "es": "Fuente: ficha APEC"
+    }
+  },
+  "footer": {
+    "copyright": {
+      "fr": "© 2025 TBS Education – Observatoire des Métiers",
+      "en": "© 2025 TBS Education – Career Observatory",
+      "es": "© 2025 TBS Education – Observatorio de Profesiones"
+    },
+    "ia_mention": {
+      "fr": "Fiches élaborées par IA (données APEC) et validées par des humains — parce qu'on ne confie pas encore les diplômes aux robots.",
+      "en": "Profiles generated by AI (APEC data) and validated by humans — because we don't hand out degrees to robots just yet.",
+      "es": "Fichas elaboradas por IA (datos APEC) y validadas por humanos — porque todavía no confiamos los diplomas a los robots."
+    },
+    "lang_fr": {
+      "fr": "FR — Français",
+      "en": "FR — Français",
+      "es": "FR — Français"
+    },
+    "lang_en": {
+      "fr": "EN — English",
+      "en": "EN — English",
+      "es": "EN — English"
+    },
+    "lang_es": {
+      "fr": "ES — Español",
+      "en": "ES — Español",
+      "es": "ES — Español"
+    }
+  },
+  "secteurs": {
+    "Management – Stratégie – Conseil – Innovation": {
+      "fr": "Management – Stratégie – Conseil – Innovation",
+      "en": "Management – Strategy – Consulting – Innovation",
+      "es": "Gestión – Estrategia – Consultoría – Innovación"
+    },
+    "Finance – Audit – Contrôle – Banque – Risk": {
+      "fr": "Finance – Audit – Contrôle – Banque – Risk",
+      "en": "Finance – Audit – Control – Banking – Risk",
+      "es": "Finanzas – Auditoría – Control – Banca – Riesgo"
+    },
+    "Commerce – Business – Entrepreneuriat": {
+      "fr": "Commerce – Business – Entrepreneuriat",
+      "en": "Commerce – Business – Entrepreneurship",
+      "es": "Comercio – Negocios – Emprendimiento"
+    },
+    "Supply Chain – Achats – Logistique – Opérations": {
+      "fr": "Supply Chain – Achats – Logistique – Opérations",
+      "en": "Supply Chain – Procurement – Logistics – Operations",
+      "es": "Cadena de suministro – Compras – Logística – Operaciones"
+    },
+    "Data – IT – Produit – Transformation digitale": {
+      "fr": "Data – IT – Produit – Transformation digitale",
+      "en": "Data – IT – Product – Digital Transformation",
+      "es": "Datos – TI – Producto – Transformación digital"
+    },
+    "Marketing – Communication – Marque – Digital": {
+      "fr": "Marketing – Communication – Marque – Digital",
+      "en": "Marketing – Communication – Brand – Digital",
+      "es": "Marketing – Comunicación – Marca – Digital"
+    },
+    "Ressources humaines – Management – Organisation": {
+      "fr": "Ressources humaines – Management – Organisation",
+      "en": "Human Resources – Management – Organisation",
+      "es": "Recursos humanos – Gestión – Organización"
+    },
+    "RSE – Qualité – Développement durable": {
+      "fr": "RSE – Qualité – Développement durable",
+      "en": "CSR – Quality – Sustainable Development",
+      "es": "RSE – Calidad – Desarrollo sostenible"
+    },
+    "Secteurs spécifiques (aéronautique, sport, luxe, tourisme, culture)": {
+      "fr": "Secteurs spécifiques (aéronautique, sport, luxe, tourisme, culture)",
+      "en": "Specific sectors (aeronautics, sport, luxury, tourism, culture)",
+      "es": "Sectores específicos (aeronáutica, deporte, lujo, turismo, cultura)"
+    }
+  },
+  "appetences": {
+    "Relations internationales": {
+      "fr": "Relations internationales",
+      "en": "International relations",
+      "es": "Relaciones internacionales"
+    },
+    "Langues étrangères": {
+      "fr": "Langues étrangères",
+      "en": "Foreign languages",
+      "es": "Idiomas extranjeros"
+    },
+    "Mathématiques": {
+      "fr": "Mathématiques",
+      "en": "Mathematics",
+      "es": "Matemáticas"
+    },
+    "Digital": {
+      "fr": "Digital",
+      "en": "Digital",
+      "es": "Digital"
+    },
+    "Ecologie": {
+      "fr": "Ecologie",
+      "en": "Ecology",
+      "es": "Ecología"
+    },
+    "Economie": {
+      "fr": "Economie",
+      "en": "Economics",
+      "es": "Economía"
+    },
+    "Art": {
+      "fr": "Art",
+      "en": "Art",
+      "es": "Arte"
+    },
+    "Business": {
+      "fr": "Business",
+      "en": "Business",
+      "es": "Negocios"
+    },
+    "Entrepreneuriat": {
+      "fr": "Entrepreneuriat",
+      "en": "Entrepreneurship",
+      "es": "Emprendimiento"
+    }
+  }
+}

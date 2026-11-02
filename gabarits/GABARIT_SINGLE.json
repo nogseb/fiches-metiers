@@ -1,0 +1,147 @@
+{
+  "_INSTRUCTIONS": {
+    "usage": "Ce gabarit définit la structure complète d'une fiche métier pour la page Single (détail). Il étend le gabarit Archive avec les champs de contenu long (missions, compétences, descriptif général, SEO). Chaque fiche est un objet JSON. Remplacer chaque valeur {{PLACEHOLDER}} par le contenu réel.",
+    "livraison": "Ce gabarit est fusionné avec le gabarit Archive : le fichier metiers-{lang}.json contient les deux ensembles de champs. Les champs du gabarit Archive sont requis. Les champs supplémentaires ci-dessous enrichissent la page Single.",
+    "langue": "Champs marqués [TRADUIRE] doivent être rédigés dans la langue cible. Champs marqués [INVARIANT] sont identiques dans toutes les langues.",
+    "format_html": "Les champs 'descriptif_general' acceptent du HTML simple : <p>, <strong>, <em>, <ul>, <li>. Pas de <div>, <table>, <script>, <style>. Chaque paragraphe dans une balise <p>. Les sauts de ligne sont des </p><p>.",
+    "contraintes_critiques": [
+      "Le champ 'descriptif_general' doit contenir au minimum 2 paragraphes <p>. Le premier paragraphe est affiché par défaut dans le modal ; les suivants sont masqués derrière 'En savoir plus'.",
+      "Les listes 'missions_principales', 'competences_hard_skills', 'competences_soft_skills' doivent contenir entre 3 et 7 éléments chacune.",
+      "Les éléments de liste sont du texte brut (pas de HTML).",
+      "Le champ 'meta_title' est limité à 60 caractères. Le champ 'meta_description' est limité à 160 caractères.",
+      "Le champ 'schema_ld_type' est toujours 'Occupation' (Schema.org). Ne pas modifier.",
+      "Le champ 'metiers_lies' contient des slugs (identifiants URL) d'autres fiches, pas des titres.",
+      "Les champs 'niveau_etudes' doivent utiliser les valeurs standardisées selon la langue (voir REFERENTIELS.niveau_etudes)."
+    ]
+  },
+
+  "_REFERENTIELS": {
+    "niveau_etudes": {
+      "FR": "Bac +5",
+      "EN": "Master's degree (Bac+5)",
+      "ES": "Máster (Bac+5)"
+    },
+    "schema_ld_type": "Occupation"
+  },
+
+  "_GABARIT_FICHE_COMPLETE": {
+
+    "_note_heritage": "Inclure tous les champs du GABARIT_ARCHIVE en plus des champs ci-dessous.",
+
+    "slug": "{{SLUG | string | Identifiant URL unique. Identique au slug Archive. | INVARIANT}}",
+    "title": "{{TITRE_METIER | string | Intitulé du métier. | TRADUIRE}}",
+    "descriptif_court": "{{DESCRIPTIF_COURT | string | Max 160 caractères, sans HTML. | TRADUIRE}}",
+
+    "descriptif_general": "{{DESCRIPTIF_GENERAL | html | Description complète du métier en HTML. Minimum 2 paragraphes <p>. Le 1er paragraphe est affiché par défaut ; les suivants apparaissent au clic sur 'En savoir plus'. Longueur recommandée : 150-300 mots. | TRADUIRE}}",
+
+    "missions_principales": [
+      "{{MISSION_1 | string | Description courte d'une mission clé. Texte brut, pas de HTML. 1 phrase. | TRADUIRE}}",
+      "{{MISSION_2 | string | Description courte d'une mission clé. | TRADUIRE}}",
+      "{{MISSION_3 | string | Description courte d'une mission clé. | TRADUIRE}}",
+      "{{MISSION_4 | string | Description courte d'une mission clé. Optionnel. | TRADUIRE}}",
+      "{{MISSION_5 | string | Description courte d'une mission clé. Optionnel. | TRADUIRE}}"
+    ],
+
+    "competences_hard_skills": [
+      "{{HARD_SKILL_1 | string | Compétence technique ou méthodologique. Texte brut. Ex: Maîtrise des outils CRM (Salesforce, HubSpot). | TRADUIRE}}",
+      "{{HARD_SKILL_2 | string | Compétence technique. | TRADUIRE}}",
+      "{{HARD_SKILL_3 | string | Compétence technique. | TRADUIRE}}",
+      "{{HARD_SKILL_4 | string | Compétence technique. Optionnel. | TRADUIRE}}",
+      "{{HARD_SKILL_5 | string | Compétence technique. Optionnel. | TRADUIRE}}"
+    ],
+
+    "competences_soft_skills": [
+      "{{SOFT_SKILL_1 | string | Compétence comportementale ou relationnelle. Texte brut. Ex: Leadership et capacité à fédérer. | TRADUIRE}}",
+      "{{SOFT_SKILL_2 | string | Compétence comportementale. | TRADUIRE}}",
+      "{{SOFT_SKILL_3 | string | Compétence comportementale. | TRADUIRE}}",
+      "{{SOFT_SKILL_4 | string | Compétence comportementale. Optionnel. | TRADUIRE}}",
+      "{{SOFT_SKILL_5 | string | Compétence comportementale. Optionnel. | TRADUIRE}}"
+    ],
+
+    "parcours_evolution": "{{PARCOURS_EVOLUTION | string | Description du parcours d'évolution typique (postes précédents, évolutions possibles). Texte brut ou HTML simple. Optionnel. | TRADUIRE}}",
+
+    "remuneration_min": "{{SALAIRE_MIN | integer | Salaire junior en k€ brut annuel. Entier. Mettre 0 si inconnu. | INVARIANT}}",
+    "remuneration_max": "{{SALAIRE_MAX | integer | Salaire senior en k€ brut annuel. Entier. Mettre 0 si inconnu. | INVARIANT}}",
+
+    "niveau_etudes": "{{NIVEAU_ETUDES | string | Niveau d'études requis. Valeurs standardisées selon la langue : FR='Bac +5', EN='Master's degree (Bac+5)', ES='Máster (Bac+5)'. | TRADUIRE}}",
+
+    "domaine_activite": "{{DOMAINE | string | Libellé exact du secteur. Voir GABARIT_ARCHIVE._REFERENTIELS.secteurs. | TRADUIRE si langue non FR sinon INVARIANT}}",
+    "secteur_id": "{{SECTEUR_ID | enum | Identifiant court du secteur. Valeurs : strategie, finance, business, supply, data, marketing, rh, rse, specifiques. | INVARIANT}}",
+
+    "employabilite": "{{EMPLOYABILITE | enum | Valeurs autorisées : 'Très recherché', 'Favorable', 'Modérée', 'Difficile'. Laisser '' si non validé. | TRADUIRE}}",
+
+    "competences_tags": [
+      "{{TAG_1 | string | Badge court affiché sur la card (2-3 mots). | TRADUIRE}}",
+      "{{TAG_2 | string | Badge court. | TRADUIRE}}",
+      "{{TAG_3 | string | Badge court. | TRADUIRE}}"
+    ],
+
+    "formations_tbs": [
+      "{{FORMATION_1 | string | Label exact issu de GABARIT_ARCHIVE._REFERENTIELS.formations_tbs. | INVARIANT}}",
+      "{{FORMATION_2 | string | Label exact issu du référentiel formations. | INVARIANT}}"
+    ],
+
+    "appetences": [
+      "{{APPETENCE_1 | string | Centre d'intérêt. Ex: Digital, Business, Art. | TRADUIRE}}",
+      "{{APPETENCE_2 | string | Centre d'intérêt. | TRADUIRE}}"
+    ],
+
+    "metiers_lies": [
+      "{{SLUG_METIER_LIE_1 | string | Slug d'une fiche métier proche. Ex: responsable-marketing. Doit exister dans le fichier metiers.json. | INVARIANT}}",
+      "{{SLUG_METIER_LIE_2 | string | Slug d'une fiche métier proche. | INVARIANT}}"
+    ],
+
+    "image": "{{URL_IMAGE | string | URL absolue de l'image de couverture (format paysage, min 800x500px). Laisser vide si pas d'image. | INVARIANT}}",
+
+    "source_apec_url": "{{URL_APEC | string | URL de la fiche APEC. Laisser vide si inexistante. | INVARIANT}}",
+    "source_france_travail_url": "{{URL_FRANCE_TRAVAIL | string | URL France Travail. Optionnel. | INVARIANT}}",
+
+    "meta_title": "{{META_TITLE | string | Titre SEO de la page, max 60 caractères. Ex: Directeur marketing – Fiche métier TBS Education. | TRADUIRE}}",
+    "meta_description": "{{META_DESCRIPTION | string | Description SEO, max 160 caractères. Identique ou proche de descriptif_court. | TRADUIRE}}"
+  },
+
+  "_EXEMPLE_REEL": {
+    "_note": "Exemple basé sur la fiche Directeur marketing (données validées)",
+    "slug": "directeur-marketing",
+    "title": "Directeur marketing",
+    "descriptif_court": "Pilotez la stratégie marketing, la croissance de la marque et l'expérience client pour transformer les tendances du marché en avantages concurrentiels durables.",
+    "descriptif_general": "<p>Le Directeur marketing définit et pilote la stratégie marketing globale de l'entreprise. Il supervise l'ensemble des activités marketing : études de marché, positionnement, communication, lancement de produits et gestion de la relation client.</p><p>Il travaille en étroite collaboration avec les équipes commerciales, digitales et produit pour garantir la cohérence de la marque et l'atteinte des objectifs de croissance. Dans un contexte de transformation digitale accélérée, il intègre les leviers data, SEO, CRM et marketing automation dans sa stratégie.</p>",
+    "missions_principales": [
+      "Définir et piloter la stratégie marketing globale (positionnement, segmentation, mix marketing)",
+      "Superviser les campagnes de communication on et off-line",
+      "Analyser les performances marketing et piloter les KPIs (ROI, CAC, NPS)",
+      "Manager et développer l'équipe marketing",
+      "Assurer la veille concurrentielle et l'intelligence marché"
+    ],
+    "competences_hard_skills": [
+      "Maîtrise des outils CRM et marketing automation (HubSpot, Salesforce, Marketo)",
+      "Expertise SEO/SEA et analytics (Google Analytics, Data Studio)",
+      "Connaissance des méthodologies de gestion de projet (Agile, Scrum)",
+      "Maîtrise des outils de BI et data visualisation",
+      "Anglais courant (niveau C1 minimum)"
+    ],
+    "competences_soft_skills": [
+      "Leadership et capacité à fédérer des équipes pluridisciplinaires",
+      "Vision stratégique et sens des enjeux business",
+      "Créativité et orientation innovation",
+      "Rigueur analytique et culture de la performance",
+      "Excellentes capacités de communication et de négociation"
+    ],
+    "parcours_evolution": "",
+    "remuneration_min": 48,
+    "remuneration_max": 113,
+    "niveau_etudes": "Bac +5",
+    "domaine_activite": "Marketing – Communication – Marque – Digital",
+    "secteur_id": "marketing",
+    "employabilite": "Très recherché",
+    "competences_tags": ["Stratégie marketing", "Digital", "Innovation"],
+    "formations_tbs": ["PGE", "MSc Digital Marketing and e-Commerce"],
+    "appetences": ["Business", "Digital", "Art"],
+    "metiers_lies": ["directeur-de-la-communication", "brand-manager"],
+    "image": "",
+    "source_apec_url": "https://www.apec.fr/tous-nos-metiers/commercial-marketing/directeur-marketing.html",
+    "source_france_travail_url": "",
+    "meta_title": "Directeur marketing – Fiche métier TBS Education",
+    "meta_description": "Pilotez la stratégie marketing, la croissance de la marque et l'expérience client pour transformer les tendances du marché en avantages concurrentiels durables."
+  }
+}
